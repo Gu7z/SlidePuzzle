@@ -50,14 +50,36 @@ export default class App extends React.Component{
     changeSquares = (x, y) => {
 
         let grid = this.state.squares
-        let aux = grid[x][y]
+        console.log(x, y)
         
-        if(grid[x][y+1]){
-            if(grid[x][y+1].props.value == 9){
-                grid[x][y] = grid[x][y+1]
-                grid[x][y+1] = aux
-            }
+        if(grid[x][y+1] && grid[x][y+1].props.value == 9){
+            let aux = grid[x][y+1]
+            console.log(grid[x][y+1].x, grid[x][y+1].y) //problema
+            grid[x][y+1] = 
+            <Quadrado
+                x = {grid[x][y+1].x}
+                y = {grid[x][y+1].y}
+                changeSquares = {this.changeSquares} 
+                value = {grid[x][y].props.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+            grid[x][y] = aux
+        }if(grid[x][y-1] && grid[x][y-1].props.value == 9){
+            let aux = grid[x][y-1]
+            grid[x][y-1] = 
+            <Quadrado
+                x = {x}
+                y = {y}
+                changeSquares = {this.changeSquares} 
+                value = {grid[x][y].props.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+            grid[x][y] = aux
         }
+
+        console.log('-----------------')
 
         this.setState({squares: []},()=>{
             this.setState({squares: grid})

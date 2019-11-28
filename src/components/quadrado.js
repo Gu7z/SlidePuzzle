@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {  } from 'react';
 
 function Quadrados(props) {
+
+
     
     const sq_Size = 500/props.qnt
     var last = false
