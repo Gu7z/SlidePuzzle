@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import Quadrado from './components/quadrado'
 import Drop from './components/drop'
@@ -9,9 +9,9 @@ export default class App extends React.Component{
         super()
         this.state = {
             square_amt: 0,
-            squares: {},
+            squares: [],
             counter: 0,
-            line_amt: 0
+            line_amt: 0,
         }
     }
 
@@ -32,8 +32,7 @@ export default class App extends React.Component{
         for (let i = 0; i < this.state.line_amt; i++) {
             for (let j = 0; j < this.state.line_amt; j++) {
                 this.state.counter += 1
-
-                    grid[j][i] = 
+                    grid[i][j] = 
                     <Quadrado 
                         x = {i}
                         y = {j}
@@ -49,16 +48,20 @@ export default class App extends React.Component{
     }
 
     changeSquares = (x, y) => {
+
         let grid = this.state.squares
-
-        console.log(grid)
-
         let aux = grid[x][y]
-        grid[x][y] = grid[0][0]
-        grid[0][0] = aux 
+        
+        if(grid[x][y+1]){
+            if(grid[x][y+1].props.value == 9){
+                grid[x][y] = grid[x][y+1]
+                grid[x][y+1] = aux
+            }
+        }
 
-        console.log(grid)
-        this.setState({squares: grid})
+        this.setState({squares: []},()=>{
+            this.setState({squares: grid})
+        })
     }
 
     render(){
@@ -69,7 +72,7 @@ export default class App extends React.Component{
                 <div style={{
                     marginLeft: '25%',
                     display: 'flex', 
-                    flexDirection: 'row', 
+                    flexDirection: 'column', 
                     maxWidth: '500px', 
                     maxHeight: '500px', 
                     minHeight:'500px', 
@@ -77,8 +80,7 @@ export default class App extends React.Component{
                     flexWrap: 'wrap'
                 }} >
                     {
-                        squares.length > 0 &&
-                        squares.map(square => <div> {square} </div> )
+                        squares.map(square => <div style={{ display: 'flex' }} > {square} </div> )
                     }
                 </div>
             </div>
