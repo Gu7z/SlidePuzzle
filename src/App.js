@@ -32,22 +32,33 @@ export default class App extends React.Component{
         for (let i = 0; i < this.state.line_amt; i++) {
             for (let j = 0; j < this.state.line_amt; j++) {
                 this.state.counter += 1
-                if (this.state.counter <= this.state.square_amt) {
+
                     grid[j][i] = 
                     <Quadrado 
+                        x = {i}
+                        y = {j}
                         changeSquares = {this.changeSquares} 
                         value = {this.state.counter} 
-                        getValue = {this.getValue} 
+                        square_amt = {this.state.square_amt} 
                         qnt = {this.state.line_amt} 
                     />
-                }
+  
             }            
-        }        
+        }
         this.setState({squares: grid})  
     }
 
-    changeSquares = (value) => {
-        console.log(value)
+    changeSquares = (x, y) => {
+        let grid = this.state.squares
+
+        console.log(grid)
+
+        let aux = grid[x][y]
+        grid[x][y] = grid[0][0]
+        grid[0][0] = aux 
+
+        console.log(grid)
+        this.setState({squares: grid})
     }
 
     render(){
