@@ -44,42 +44,131 @@ export default class App extends React.Component{
   
             }            
         }
-        this.setState({squares: grid})  
+        this.setState({squares: grid}, ()=>{
+            this.randomSquares()
+        })
+        
+    }
+
+    randomSquares = () =>{
+        const grid = this.state.squares
+        let random = 0
+        let randoms = []
+        while(randoms.length < this.state.square_amt ){
+            random = Math.floor(Math.random() * (this.state.square_amt - 0)) + 0
+            randoms = [...randoms.filter(number => number !== random), random ]
+        }
+        
+        randoms.map(numbers => {
+            console.log(numbers)
+        })
+
+        //for(){
+        //    grid i x y = grid random xy
+        //}
+
+        grid.map(
+            squares => {
+                squares.map(
+                    square => {
+                        console.log(square.props.value)
+                    }
+                )
+            }
+        )
+
+        this.setState({squares: grid})
     }
 
     changeSquares = (x, y) => {
 
         let grid = this.state.squares
-        console.log(x, y)
-        
-        if(grid[x][y+1] && grid[x][y+1].props.value == 9){
-            let aux = grid[x][y+1]
-            console.log(grid[x][y+1].x, grid[x][y+1].y) //problema
-            grid[x][y+1] = 
-            <Quadrado
-                x = {grid[x][y+1].x}
-                y = {grid[x][y+1].y}
-                changeSquares = {this.changeSquares} 
-                value = {grid[x][y].props.value} 
-                square_amt = {this.state.square_amt} 
-                qnt = {this.state.line_amt} 
-            />
-            grid[x][y] = aux
-        }if(grid[x][y-1] && grid[x][y-1].props.value == 9){
-            let aux = grid[x][y-1]
-            grid[x][y-1] = 
-            <Quadrado
-                x = {x}
-                y = {y}
-                changeSquares = {this.changeSquares} 
-                value = {grid[x][y].props.value} 
-                square_amt = {this.state.square_amt} 
-                qnt = {this.state.line_amt} 
-            />
-            grid[x][y] = aux
-        }
 
-        console.log('-----------------')
+        if(grid[x][y+1] && grid[x][y+1].props.value === 9){
+            let atual = grid[x][y].props
+            let seguinte = grid[x][y+1].props
+
+            grid[x][y] = <Quadrado
+                x = {atual.x}
+                y = {atual.y}
+                changeSquares = {this.changeSquares} 
+                value = {seguinte.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+
+            grid[x][y+1] = <Quadrado
+                x = {seguinte.x}
+                y = {seguinte.y}
+                changeSquares = {this.changeSquares} 
+                value = {atual.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+        }else if(grid[x][y-1] && grid[x][y-1].props.value === 9){
+            let atual = grid[x][y].props
+            let anterior = grid[x][y-1].props
+
+            grid[x][y] = <Quadrado
+                x = {atual.x}
+                y = {atual.y}
+                changeSquares = {this.changeSquares} 
+                value = {anterior.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+
+            grid[x][y-1] = <Quadrado
+                x = {anterior.x}
+                y = {anterior.y}
+                changeSquares = {this.changeSquares} 
+                value = {atual.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+        }else if(grid[x+1] && grid[x+1][y].props.value === 9){
+            let atual = grid[x][y].props
+            let baixo = grid[x+1][y].props
+
+            grid[x][y] = <Quadrado
+                x = {atual.x}
+                y = {atual.y}
+                changeSquares = {this.changeSquares} 
+                value = {baixo.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+
+            grid[x+1][y] = <Quadrado
+                x = {baixo.x}
+                y = {baixo.y}
+                changeSquares = {this.changeSquares} 
+                value = {atual.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+        }else if(grid[x-1] && grid[x-1][y].props.value === 9){
+            let atual = grid[x][y].props
+            let baixo = grid[x-1][y].props
+
+            grid[x][y] = <Quadrado
+                x = {atual.x}
+                y = {atual.y}
+                changeSquares = {this.changeSquares} 
+                value = {baixo.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+
+            grid[x-1][y] = <Quadrado
+                x = {baixo.x}
+                y = {baixo.y}
+                changeSquares = {this.changeSquares} 
+                value = {atual.value} 
+                square_amt = {this.state.square_amt} 
+                qnt = {this.state.line_amt} 
+            />
+        }
 
         this.setState({squares: []},()=>{
             this.setState({squares: grid})
