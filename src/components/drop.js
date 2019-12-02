@@ -1,10 +1,11 @@
 import React from 'react';
-import { getValues } from 'jest-validate/build/condition';
 
 function Drop(props) {
+
   function setValues(value){
     props.getValue(value)
   }
+
   return (
     <div className="dropdown">
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

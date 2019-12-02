@@ -27,64 +27,79 @@ export default class App extends React.Component{
         
     }
 
-    makeSquares = () => {  
-        let grid = Array(this.state.line_amt).fill().map(()=>Array(this.state.line_amt).fill(null)) 
-        for (let i = 0; i < this.state.line_amt; i++) {
-            for (let j = 0; j < this.state.line_amt; j++) {
-                this.state.counter += 1
-                    grid[i][j] = 
-                    <Quadrado 
-                        x = {i}
-                        y = {j}
-                        changeSquares = {this.changeSquares} 
-                        value = {this.state.counter} 
-                        square_amt = {this.state.square_amt} 
-                        qnt = {this.state.line_amt} 
-                    />
-  
-            }            
-        }
-        this.setState({squares: grid}, ()=>{
-            this.randomSquares()
-        })
-        
-    }
+    isSolvable = () => {
 
-    randomSquares = () =>{
-        const grid = this.state.squares
-        let random = 0
-        let randoms = []
-        while(randoms.length < this.state.square_amt ){
-            random = Math.floor(Math.random() * (this.state.square_amt - 0)) + 0
-            randoms = [...randoms.filter(number => number !== random), random ]
-        }
-        
-        randoms.map(numbers => {
-            console.log(numbers)
-        })
+        let tiles = []
 
-        //for(){
-        //    grid i x y = grid random xy
-        //}
-
-        grid.map(
-            squares => {
+        this.state.squares.map(
+            squares=>{
                 squares.map(
                     square => {
-                        console.log(square.props.value)
+                        tiles = [...tiles, square]
                     }
                 )
             }
         )
 
-        this.setState({squares: grid})
+        let countInversions = 0;
+
+        for (let i = 0; i < tiles.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (tiles[j].props.value > tiles[i].props.value){
+                    countInversions++;  
+                } 
+            }
+        }
+
+        return countInversions % 2 == 0;
+    }
+
+    makeSquares = () => {
+        
+        let random = 0
+        let randoms = []
+
+        while(randoms.length < this.state.square_amt ){
+            random = Math.floor(Math.random() * (this.state.square_amt - 0)) + 0
+            randoms = [...randoms.filter(number => number !== random), random ]
+        }
+
+        randoms[randoms.indexOf(0)] = this.state.square_amt      
+
+        randoms.push(this.state.square_amt+1)
+
+        let counter = 0
+
+        let grid = Array(this.state.line_amt).fill().map(()=>Array(this.state.line_amt).fill(null)) 
+        for (let i = 0; i < this.state.line_amt; i++) {
+            for (let j = 0; j < this.state.line_amt; j++) {
+                    grid[i][j] = 
+                    <Quadrado 
+                        x = {i}
+                        y = {j}
+                        changeSquares = {this.changeSquares} 
+                        value = {randoms[counter]} 
+                        square_amt = {this.state.square_amt} 
+                        qnt = {this.state.line_amt} 
+                    />
+                counter += 1                
+            }            
+        }
+        this.setState({squares: grid}, ()=>{
+            if(this.isSolvable()){
+                return
+            }else{
+                this.makeSquares()
+            }
+        })
+        
     }
 
     changeSquares = (x, y) => {
 
         let grid = this.state.squares
 
-        if(grid[x][y+1] && grid[x][y+1].props.value === 9){
+        if(grid[x][y+1] && grid[x][y+1].props.value === this.state.square_amt+1){
             let atual = grid[x][y].props
             let seguinte = grid[x][y+1].props
 
@@ -105,7 +120,7 @@ export default class App extends React.Component{
                 square_amt = {this.state.square_amt} 
                 qnt = {this.state.line_amt} 
             />
-        }else if(grid[x][y-1] && grid[x][y-1].props.value === 9){
+        }else if(grid[x][y-1] && grid[x][y-1].props.value === this.state.square_amt+1){
             let atual = grid[x][y].props
             let anterior = grid[x][y-1].props
 
@@ -126,7 +141,7 @@ export default class App extends React.Component{
                 square_amt = {this.state.square_amt} 
                 qnt = {this.state.line_amt} 
             />
-        }else if(grid[x+1] && grid[x+1][y].props.value === 9){
+        }else if(grid[x+1] && grid[x+1][y].props.value === this.state.square_amt+1){
             let atual = grid[x][y].props
             let baixo = grid[x+1][y].props
 
@@ -147,7 +162,7 @@ export default class App extends React.Component{
                 square_amt = {this.state.square_amt} 
                 qnt = {this.state.line_amt} 
             />
-        }else if(grid[x-1] && grid[x-1][y].props.value === 9){
+        }else if(grid[x-1] && grid[x-1][y].props.value === this.state.square_amt+1){
             let atual = grid[x][y].props
             let baixo = grid[x-1][y].props
 
@@ -169,14 +184,13 @@ export default class App extends React.Component{
                 qnt = {this.state.line_amt} 
             />
         }
-
         this.setState({squares: []},()=>{
             this.setState({squares: grid})
         })
     }
 
     render(){
-        const { squares } = this.state
+        const { squares, value } = this.state
         return(
             <div style = {{ alignContent: 'center' }} className="App">
                 <Drop getValue = {this.getValue} />
@@ -191,7 +205,7 @@ export default class App extends React.Component{
                     flexWrap: 'wrap'
                 }} >
                     {
-                        squares.map(square => <div style={{ display: 'flex' }} > {square} </div> )
+                        squares.map(squares => <div style={{ display: 'flex' }} > {squares} </div> )
                     }
                 </div>
             </div>

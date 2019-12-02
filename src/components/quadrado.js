@@ -7,7 +7,7 @@ function Quadrados(props) {
     const sq_Size = 500/props.qnt
     var last = false
 
-    if ( props.value == props.square_amt + 1  ){
+    if ( props.value === props.square_amt + 1  ){
         last = true
     }
     
