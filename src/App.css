@@ -31,3 +31,7 @@
   justify-content: center;
   border: 2px solid #9dadcc;
 }
+
+.quadrado:hover {
+  background-color: #282c34;
+}
