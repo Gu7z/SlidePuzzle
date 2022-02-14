@@ -44,9 +44,7 @@ const App = () => {
         }}
       >
         {squares.map((squares, index) => (
-          <div style={{ display: "flex" }} key={`square-${index}`}>
-            {squares}
-          </div>
+          <div key={`square-${index}`}>{squares}</div>
         ))}
       </div>
     </div>
