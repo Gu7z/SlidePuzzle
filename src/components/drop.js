@@ -1,10 +1,8 @@
 import React from "react";
 
-function Drop(props) {
-  function setValues(value) {
-    props.getValue(value);
-  }
+const gameSizes = [3, 4, 5, 6, 7, 8, 9, 10];
 
+const Drop = ({ setGameSize }) => {
   return (
     <div className="dropdown">
       <button
@@ -21,33 +19,18 @@ function Drop(props) {
         className="dropdown-menu dropdown-menu-center"
         aria-labelledby="dropdownMenuButton"
       >
-        <p className="dropdown-item" onClick={() => setValues(3)}>
-          3
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(4)}>
-          4
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(5)}>
-          5
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(6)}>
-          6
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(7)}>
-          7
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(8)}>
-          8
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(9)}>
-          9
-        </p>
-        <p className="dropdown-item" onClick={() => setValues(10)}>
-          10
-        </p>
+        {gameSizes.map((size, index) => (
+          <p
+            key={`size-${size}`}
+            className="dropdown-item"
+            onClick={() => setGameSize(size)}
+          >
+            {size}
+          </p>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default Drop;
