@@ -6,22 +6,26 @@ import Drop from "./components/drop";
 const App = () => {
   const [gameSize, setGameSize] = useState(undefined);
   const [squares, setSquares] = useState([]);
+  const [positions, setPositions] = useState([]);
 
   const generateSquares = useCallback(() => {
     const newSquares = [];
-    for (let i = 0; i < gameSize ** 2; i++) {
+    const newPositions = [];
+
+    for (let i = 1; i <= gameSize ** 2; i++) {
       newSquares.push(
         <Quadrado
-          x={0}
-          y={0}
-          changeSquares={() => {}}
-          value={i}
+          moveSquare={() => {}}
+          position={i}
           squaresPerLine={gameSize}
         />
       );
+
+      newPositions.push(i);
     }
 
     setSquares(newSquares);
+    setPositions(newPositions);
   }, [gameSize]);
 
   useEffect(() => {
