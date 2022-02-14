@@ -1,19 +1,53 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import Quadrado from "./components/quadrado";
 import Drop from "./components/drop";
 
 const App = () => {
+  const [gameSize, setGameSize] = useState(undefined);
+  const [squares, setSquares] = useState([]);
+
+  const generateSquares = useCallback(() => {
+    const newSquares = [];
+    for (let i = 0; i < gameSize ** 2; i++) {
+      newSquares.push(
+        <Quadrado
+          x={0}
+          y={0}
+          changeSquares={() => {}}
+          value={i}
+          squaresPerLine={gameSize}
+        />
+      );
+    }
+
+    setSquares(newSquares);
+  }, [gameSize]);
+
+  useEffect(() => {
+    if (gameSize === undefined) return;
+
+    generateSquares();
+  }, [generateSquares, gameSize]);
+
   return (
     <div style={{ alignContent: "center" }} className="App">
       <h1>Slide Puzzle</h1>
       <div style={{ marginBottom: 16 }}>
-        {/* <Drop getValue={this.getValue} /> */}
+        <Drop setGameSize={setGameSize} />
       </div>
-      <div>
-        {/* {squares.map((squares) => (
-          <div style={{ display: "flex" }}> {squares} </div>
-        ))} */}
+      <div
+        style={{
+          width: 500,
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        {squares.map((squares, index) => (
+          <div style={{ display: "flex" }} key={`square-${index}`}>
+            {squares}
+          </div>
+        ))}
       </div>
     </div>
   );
