@@ -13,30 +13,21 @@ function Quadrados({ squaresPerLine, x, y, value, changeSquares }) {
       {!last ? (
         <div
           onClick={() => changeSquares(x, y)}
+          className="quadrado"
           style={{
             width: `${sq_Size}px`,
             height: `${sq_Size}px`,
-            backgroundColor: "#626C80",
-            display: "flex",
-            alignContent: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "2px solid #9DADCC",
           }}
         >
           <div>{value}</div>
         </div>
       ) : (
         <div
+          className="quadrado"
           style={{
             width: `${sq_Size}px`,
             height: `${sq_Size}px`,
-            display: "flex",
             backgroundColor: "#9DADCC",
-            alignContent: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "2px solid #9DADCC",
           }}
         ></div>
       )}
