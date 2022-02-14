@@ -1,10 +1,10 @@
 import React from "react";
 
-function Quadrados({ squaresPerLine, x, y, value, changeSquares }) {
+function Quadrados({ squaresPerLine, position, moveSquare }) {
   const sq_Size = 500 / squaresPerLine;
   var last = false;
 
-  if (value === squaresPerLine ** 2 - 1) {
+  if (position === squaresPerLine ** 2) {
     last = true;
   }
 
@@ -12,14 +12,14 @@ function Quadrados({ squaresPerLine, x, y, value, changeSquares }) {
     <div>
       {!last ? (
         <div
-          onClick={() => changeSquares(x, y)}
+          onClick={() => moveSquare(position)}
           className="quadrado"
           style={{
             width: `${sq_Size}px`,
             height: `${sq_Size}px`,
           }}
         >
-          <div>{value}</div>
+          <div>{position}</div>
         </div>
       ) : (
         <div
