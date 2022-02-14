@@ -219,19 +219,11 @@ export default class App extends React.Component {
     const { squares, value } = this.state;
     return (
       <div style={{ alignContent: "center" }} className="App">
-        <Drop getValue={this.getValue} />
-        <div
-          style={{
-            marginLeft: "25%",
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: "500px",
-            maxHeight: "500px",
-            minHeight: "500px",
-            minWidth: "500px",
-            flexWrap: "wrap",
-          }}
-        >
+        <h1>Slide Puzzle</h1>
+        <div style={{ marginBottom: 16 }}>
+          <Drop getValue={this.getValue} />
+        </div>
+        <div>
           {squares.map((squares) => (
             <div style={{ display: "flex" }}> {squares} </div>
           ))}

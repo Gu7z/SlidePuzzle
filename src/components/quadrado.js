@@ -16,12 +16,12 @@ function Quadrados(props) {
           style={{
             width: `${sq_Size}px`,
             height: `${sq_Size}px`,
-            backgroundColor: "red",
+            backgroundColor: "#626C80",
             display: "flex",
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",
-            border: "solid",
+            border: "2px solid #9DADCC",
           }}
         >
           <div>{props.value}</div>
@@ -31,12 +31,12 @@ function Quadrados(props) {
           style={{
             width: `${sq_Size}px`,
             height: `${sq_Size}px`,
-            backgroundColor: "white",
             display: "flex",
+            backgroundColor: "#9DADCC",
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",
-            border: "solid",
+            border: "2px solid #9DADCC",
           }}
         ></div>
       )}

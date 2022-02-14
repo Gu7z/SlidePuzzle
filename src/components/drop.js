@@ -15,9 +15,12 @@ function Drop(props) {
         aria-haspopup="true"
         aria-expanded="false"
       >
-        Escolha
+        Escolha um tamanho de jogo
       </button>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div
+        className="dropdown-menu dropdown-menu-center"
+        aria-labelledby="dropdownMenuButton"
+      >
         <p className="dropdown-item" onClick={() => setValues(3)}>
           3
         </p>
