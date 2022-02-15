@@ -4,7 +4,7 @@ Slide Puzzel
 
 <p align="center">A simple slide puzzle game!</p>
 
-## :cloud: [Demo](link)
+## :cloud: [Demo](https://slide-puzzle.vercel.app/)
 
 ## :busts_in_silhouette: Participants
 
