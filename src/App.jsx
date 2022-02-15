@@ -8,6 +8,19 @@ import { swapSquares } from "./utils";
 const App = () => {
   const [gameSize, setGameSize] = useState(3);
   const [squaresValues, setSquaresValues] = useState([]);
+  const [movimentsCounter, setMovimentsCounter] = useState(0);
+
+  const randomize = (newSquaresValues) => {
+    const numberOfRandomizes = 1000 * (gameSize ** 2 / 2);
+
+    for (let index = 1; index <= numberOfRandomizes; index++) {
+      const randomNumber = Math.floor(Math.random() * gameSize ** 2 + 1);
+
+      newSquaresValues = swapSquares(newSquaresValues, gameSize, randomNumber);
+    }
+
+    return newSquaresValues;
+  };
 
   const generateSquares = () => {
     let newSquaresValues = [];
@@ -16,7 +29,10 @@ const App = () => {
       newSquaresValues.push(i);
     }
 
-    const numberOfRandomizes = 1000 * (gameSize ** 2 / 2);
+    newSquaresValues = randomize(newSquaresValues);
+
+    setSquaresValues(newSquaresValues);
+  };
 
     for (let index = 1; index <= numberOfRandomizes; index++) {
       const randomNumber = Math.floor(Math.random() * gameSize ** 2 + 1);
