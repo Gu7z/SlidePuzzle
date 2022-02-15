@@ -34,17 +34,28 @@ const App = () => {
     setSquaresValues(newSquaresValues);
   };
 
-    for (let index = 1; index <= numberOfRandomizes; index++) {
-      const randomNumber = Math.floor(Math.random() * gameSize ** 2 + 1);
+  const checkWin = (userArray) => {
+    const exampleArray = Array.from({ length: gameSize ** 2 }, (_, i) => i + 1);
 
-      newSquaresValues = swapSquares(newSquaresValues, gameSize, randomNumber);
-    }
+    const allValuesAreEqual = exampleArray.every((value, index) => {
+      return value === userArray[index];
+    });
 
-    setSquaresValues(newSquaresValues);
+    return allValuesAreEqual;
   };
 
   const moveSquare = (squareValue) => {
+    setMovimentsCounter((old) => old + 1);
     const newSquaresValues = swapSquares(squaresValues, gameSize, squareValue);
+
+    if (checkWin(newSquaresValues)) {
+      generateSquares();
+      setTimeout(() => {
+        alert("Voce venceu!!");
+
+        setMovimentsCounter(0);
+      }, 100);
+    }
 
     setSquaresValues(newSquaresValues);
   };
@@ -77,6 +88,14 @@ const App = () => {
             />
           </div>
         ))}
+
+        <p
+          style={{
+            marginTop: 16,
+          }}
+        >
+          Quantidade de movimentos: {movimentsCounter}
+        </p>
       </div>
     </div>
   );
