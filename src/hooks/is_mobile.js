@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const IsMobile = (props) => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -16,3 +16,5 @@ const IsMobile = (props) => {
 
   return width <= 768;
 };
+
+export default IsMobile;
