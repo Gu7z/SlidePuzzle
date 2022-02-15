@@ -1,7 +1,9 @@
 import React from "react";
+import IsMobile from "../hooks/is_mobile";
 
 function Quadrados({ squaresPerLine, squareValue, moveSquare }) {
-  const sq_Size = 500 / squaresPerLine;
+  const isMobileDevice = IsMobile();
+  const sq_Size = (isMobileDevice ? 300 : 500) / squaresPerLine;
   var last = false;
 
   if (squareValue === squaresPerLine ** 2) {

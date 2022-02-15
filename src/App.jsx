@@ -4,11 +4,13 @@ import "./App.css";
 import Quadrado from "./components/quadrado";
 import Drop from "./components/drop";
 import { swapSquares } from "./utils";
+import { isMobile } from "./hooks";
 
 const App = () => {
   const [gameSize, setGameSize] = useState(3);
   const [squaresValues, setSquaresValues] = useState([]);
   const [movimentsCounter, setMovimentsCounter] = useState(0);
+  const isMobileDevice = isMobile();
 
   const randomize = (newSquaresValues) => {
     const numberOfRandomizes = 1000 * (gameSize ** 2 / 2);
@@ -75,6 +77,7 @@ const App = () => {
       <div
         className="game-area"
         style={{
+          width: isMobileDevice ? 300 : 500,
           display: "flex",
           flexWrap: "wrap",
         }}
