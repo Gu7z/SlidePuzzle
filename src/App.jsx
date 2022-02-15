@@ -73,8 +73,8 @@ const App = () => {
         <Drop setGameSize={setGameSize} />
       </div>
       <div
+        className="game-area"
         style={{
-          width: 500,
           display: "flex",
           flexWrap: "wrap",
         }}
